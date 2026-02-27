@@ -2,7 +2,6 @@ import { routes } from './../../app.routes';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-import { Hobby } from '../../core/enums/hobby.enum';
 import { AuthService } from '../../core/services/auth.service';
 import { email } from '@angular/forms/signals';
 
@@ -20,11 +19,7 @@ export class RegisterComponent {
   successMessage = signal('');
   isLoading = signal(false)
 
-  public readonly Hobby = Hobby
 
-  public hobbyList = Object.values(Hobby)
-
-  selectedHobbies = signal<string[]>([])
 
 
   registerForm = this.fb.group({
@@ -36,20 +31,7 @@ export class RegisterComponent {
     }
   );
 
-  toggleHobby(hobby: string): void {
-    const current = this.selectedHobbies()
-    const index = current.indexOf(hobby)
 
-    if(index === -1) {
-      this.selectedHobbies.set([...current, hobby])
-    } else {
-      this.selectedHobbies.set(current.filter(h => h !== hobby))
-    }
-  }
-
-  isHobbySelected(hobby: string): boolean {
-    return this.selectedHobbies().includes(hobby)
-  }
 
   onSubmit(): void {
 
@@ -61,10 +43,6 @@ export class RegisterComponent {
       return
     }
 
-    if(this.selectedHobbies().length === 0) {
-      this.errorMessage.set('Por favor, seleccionado al menos un hobby')
-      return
-    }
 
     const password = this.registerForm.value.password
     const confirmPassword = this.registerForm.value.confirmPassword
@@ -78,7 +56,6 @@ export class RegisterComponent {
       name: this.registerForm.value.name,
       email: this.registerForm.value.email,
       password: this.registerForm.value.password,
-      hobbies: this.selectedHobbies()
     }
 
     this.isLoading.set(true)

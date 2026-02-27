@@ -22,18 +22,9 @@
     <input type="password" placeholder="Confirmar Password" formControlName="confirmPassword"
            class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-2 md:my-3 placeholder-gray-500 bg-transparent outline-none">
 
-    <label for="" class="flex justify-start">Interesado en..</label>
+    
 
-    <div class="grid grid-cols-2">
-      @for (hobby of hobbyList; track hobby) {
-        <div class=" flex flex-row gap-5 justify-end">
-          <label [for]="hobby"> {{ hobby }}</label>
-          <input type="checkbox" [checked]="isHobbySelected(hobby)" (change)="toggleHobby(hobby)">
 
-        </div>
-      }
-
-    </div>
 
     <button type="submit" [disabled]="isLoading()"
             class="border-pink-500 border-2 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-105 hover:bg-pink-200
