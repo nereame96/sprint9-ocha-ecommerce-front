@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Category } from '../enums/category.enum';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +58,10 @@ export class ProductsService {
 
   setCategoryFilter(category: Category | null) {
     this._selectedCategory.set(category)
+  }
+
+  getProductById(id: string): Observable<ProductModel> {
+    return this.http.get<ProductModel>(`${this.apiUrl}/${id}`)
   }
 
 }

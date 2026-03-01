@@ -1,6 +1,6 @@
 @for (product of products(); track product._id) {
 
-<a [routerLink]="['/product', product._id]">
+<a [routerLink]="['/product-detail', product._id]">
 
   <h3>{{ product.name}}</h3>
   <span>{{ product.price}}</span>
