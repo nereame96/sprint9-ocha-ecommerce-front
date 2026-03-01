@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { User } from "../modals/user-api";
+import { User } from "../models/user-api";
 import { AuthService } from './auth.service';
 import { environment } from '../../../environments/environment';
 

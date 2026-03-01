@@ -1,0 +1,12 @@
+@for (product of products(); track product._id) {
+
+<a [routerLink]="['/product', product._id]">
+
+  <h3>{{ product.name}}</h3>
+  <span>{{ product.price}}</span>
+  <span>{{ product.quantity}}</span>
+
+</a>
+
+  <button>Add to Cart</button>
+}
