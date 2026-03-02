@@ -20,11 +20,13 @@ export class ProductsService {
   private _loading = signal<boolean>(false)
   private _error = signal<string | null>(null)
   private _selectedCategory = signal<Category | null>(null)
+  private _cart = signal<ProductModel[]>([])
 
   selectedCategory = this._selectedCategory.asReadonly();
   products = this._products.asReadonly();
   loading = this._loading.asReadonly();
   error = this._error.asReadonly();
+  cart = this._cart.asReadonly()
 
   categoryList = Object.values(Category)
 
@@ -71,7 +73,7 @@ export class ProductsService {
 
 
 
-//addToCartProduct
+//addProductToCart
 //removeProductFromCart
 //goToProductDetail
 //increaseNumProducts

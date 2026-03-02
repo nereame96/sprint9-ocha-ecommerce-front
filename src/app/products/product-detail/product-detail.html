@@ -1,12 +1,21 @@
 
 
 @if (product()) {
-  <div >
+  <div class="product-detail" >
     <h1> {{ product()?.name}}</h1>
     <img [src]="product()?.imageUrl" [alt]="product()?.name">
     <p>{{ product()?.description}}</p>
     <h2>{{ product()?.price}}€</h2>
-    <button>Add to Cart</button>
+    
+    <button
+    (click)="addToCart()"
+    [disabled]="product()?.stock === 0">
+    @if(product()?.stock === 0) {
+      No stock
+    } @else {
+      Add to Cart
+    }
+    </button>
 
   </div>
 } @else {
