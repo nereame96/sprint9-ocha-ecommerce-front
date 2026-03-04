@@ -5,6 +5,7 @@ import { HomeComponent } from './shared/home/home';
 import { ProductsListComponent } from './products/products-list/products-list';
 import { ProductDetailComponent } from './products/product-detail/product-detail';
 import { CartComponent } from './cart/cart';
+import { CustomTeaComponent } from './custom-tea/custom-tea';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,11 @@ export const routes: Routes = [
   {
     path: 'product-detail/:id',
     component: ProductDetailComponent
+  },
+
+  {
+    path: 'custom-tea',
+    component: CustomTeaComponent
   },
 
   {

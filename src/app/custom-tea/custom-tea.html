@@ -1,1 +1,74 @@
-<p>custom-tea works!</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+  <div>
+
+    <h1>Craft Your Signature Sip</h1>
+    <p>Select your base, ingredients, and size to create a tea that is uniquely yours.</p>
+
+    <div>
+      <span>1</span>
+      <h3>Choose Your Base Tea</h3>
+
+      <div class="grid grid-cols-2 gap-2">
+        @for (base of baseList; track $index) {
+          <button
+          [class.bg-green-600]="selectedBase() === base"
+          (click)="setBase(base)">
+          {{ base }}</button>
+        }
+
+      </div>
+    </div>
+
+    <div>
+      <span>2</span>
+      <h3>Add Ingredients</h3>
+      <span>(Choose up to 4)</span>
+      <div class="grid grid-cols-2 gap-2 ">
+      @for (ingredient of ingredientsList; track $index) {
+          <button
+          [class.bg-green-600]="selectedIngredients().includes(ingredient)"
+          (click)="toggleIngredient(ingredient)">
+          {{ ingredient }}
+          </button>
+
+        }
+      </div>
+    </div>
+
+    <div>
+      <span>3</span>
+      <h3>Select Size</h3>
+      @for (size of sizeList; track $index) {
+        <button
+        [class.bg-green-600]="selectedSize() === size"
+        (click)="setSize(size)">
+        {{ size }}</button>
+      }
+    </div>
+
+    <div>
+      <span>4</span>
+      <h3>Name Your Creation</h3>
+      <input class="w-full" type="text"  placeholder="e.g. Citric Sencha" [(ngModel)]="currentName">
+    </div>
+
+  </div>
+
+  <div>
+
+    <!--<img src="assets/default-custom-tea.jpg" alt="Image default custom-tea">  -->
+    <h4>CUSTOM TEA TOTAL</h4>
+    <h4>{{ currentPrice() }}€</h4>
+    <h4>{{ currentIntensity()}}%</h4>
+    <button
+    (click)="addToCart()"
+    [disabled]="!customTea()"
+    >Add My Custom Tea to Cart -></button>
+    <span>Secure Checkout & Artisan Blending Guarantee</span>
+
+  </div>
+
+
+
+</div>
