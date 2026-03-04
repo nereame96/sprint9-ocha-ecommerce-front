@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomTea } from './custom-tea';
+import { CustomTeaComponent } from './custom-tea';
 
 describe('CustomTea', () => {
-  let component: CustomTea;
-  let fixture: ComponentFixture<CustomTea>;
+  let component: CustomTeaComponent;
+  let fixture: ComponentFixture<CustomTeaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomTea]
+      imports: [CustomTeaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomTea);
+    fixture = TestBed.createComponent(CustomTeaComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

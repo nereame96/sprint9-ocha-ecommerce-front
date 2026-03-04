@@ -1,6 +1,6 @@
-import { Base } from "../enums/base.enum";
-import { Ingredients } from "../enums/ingredients.enum";
-import { Quantity } from "../enums/quantity.enum";
+import { Base } from '../enums/base.enum';
+import { Ingredients } from '../enums/ingredients.enum';
+import { Size } from '../enums/size.enum';
 
 export interface CustomTeaModel {
   _id: string;
@@ -10,11 +10,10 @@ export interface CustomTeaModel {
   ingredients: Ingredients[];
   calculatedPrice: number;
   intensity: number;
-  quantity: Quantity;
+  size: Size;
   imageUrl: string;
   createdAt: Date;
   updateddAt: Date;
-
 }
 
 export interface CreateCustomTeaDto {
@@ -23,7 +22,7 @@ export interface CreateCustomTeaDto {
   ingredients: Ingredients[];
   calculatedPrice: number;
   intensity: number; //es una media calculada de base y ingredients
-  quantity: Quantity;
+  size: Size;
   imageUrl: string;
 }
 
@@ -32,7 +31,7 @@ export interface CustomTeaBuilder {
   base?: Base;
   ingredients: Ingredients[];
   intensity?: number;
-  quantity?: Quantity;
+  size?: Size;
   calculatedPrice?: number;
   imageUrl?: string;
 }

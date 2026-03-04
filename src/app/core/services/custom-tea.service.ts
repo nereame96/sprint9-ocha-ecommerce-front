@@ -23,7 +23,7 @@ export class CustomTeaService {
 
   const basePrice = basePrices[customTea.base] || 0
   const ingredientsPrice = (customTea.ingredients?.length || 0 ) * 1  //   1 eur/ingredient
-  const multiplier = sizeMultiplier[customTea.quantity] || 1
+  const multiplier = sizeMultiplier[customTea.size] || 1
   const finalPrice = (basePrice + ingredientsPrice) * multiplier
 
   return Math.round(finalPrice * 100) / 100;
