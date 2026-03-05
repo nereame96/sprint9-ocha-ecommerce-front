@@ -4,40 +4,27 @@
 
     <a routerLink="/" class="flex items-center gap-2 md:gap-3 group z-50">
       <p class="text-2xl md:text-5xl font-bold text-indigo-700 group-hover:text-indigo-600 transition-colors duration-300">
-        HobbyShare
+        OCHA
       </p>
     </a>
 
     @if (isAuthenticated()) {
 
       <div class="hidden lg:flex items-center gap-4">
-        <a routerLink="/events"
-           routerLinkActive="text-stone-700"
-           [routerLinkActiveOptions]="{exact: true}"
-           class="text-indigo-700 hover:text-indigo-900 font-semibold
-                  transition-all duration-300 px-3 py-2 text-base">
-          Eventos
-        </a>
-        <a routerLink="/events/map"
-           routerLinkActive="text-stone-700"
-           [routerLinkActiveOptions]="{exact: true}"
-           class="text-indigo-700 hover:text-indigo-900 font-semibold
-                  transition-all duration-300 px-3 py-2 text-base">
-          Mapa
-        </a>
+
         <a routerLink="/calendar"
            routerLinkActive="text-stone-700"
            [routerLinkActiveOptions]="{exact: false}"
            class="text-indigo-700 hover:text-indigo-900 font-semibold
                   transition-all duration-300 px-3 py-2 text-base">
-          Calendario
+          SHOP
         </a>
         <a routerLink="/dashboard"
            routerLinkActive="text-stone-700"
            [routerLinkActiveOptions]="{exact: false}"
            class="text-indigo-700 hover:text-indigo-900 font-semibold
                   transition-all duration-300 px-3 py-2 text-base">
-          Gráficos
+          CUSTOM TEA
         </a>
 
         <button (click)="cartService.toggleCart()">
