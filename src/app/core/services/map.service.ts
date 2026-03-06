@@ -9,18 +9,32 @@ export class MapService {
   private maps: Map<string, L.Map> = new Map()
 
   initMap(config: MapConfig): L.Map {
-    this.destroyMap(config.containerId)
+  this.destroyMap(config.containerId);
 
-    const map = L.map(config.containerId).setView(config.center, config.zoom)
+  // Validación de center y zoom
+  const center: [number, number] =
+    Array.isArray(config.center) &&
+    config.center.length === 2 &&
+    config.center.every(c => typeof c === 'number')
+      ? config.center
+      : [41.40237, 2.19454];
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors',
-    }).addTo(map);
+  const zoom: number = typeof config.zoom === 'number' ? config.zoom : 13;
 
-    this.maps.set(config.containerId, map);
+  const map = L.map(config.containerId, {
+    center,
+    zoom,
+  });
 
-    return map;
-  }
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors',
+  }).addTo(map);
+
+  this.maps.set(config.containerId, map);
+
+  return map;
+}
 
 
   destroyMap(containerId: string): void {
@@ -163,7 +177,7 @@ export class MapService {
         <p style="margin: 8px 0; font-size: 13px; color: #666; line-height: 1.4;">
           ${store.address}
         </p>
-        
+
       </div>
     `;
   }
