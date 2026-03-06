@@ -1,1 +1,26 @@
-<div id="map" class="z-0 w-full rounded-3xl bg-gray-200" style="height: 500px; min-height: 500px;"></div>
+<div>
+  <h1>Find OCHA</h1>
+  <p>Experience the art of Japanese tea in person. Visit our physical boutiques across Barcelona for tastings and ceremonies</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+
+    <div >
+      @for (store of stores(); track store._id; let i = $index) {
+        <button
+        [class.bg-green-600]="activeStoreId() === store._id"
+            (click)="focusStore(i)">
+          <h2>{{ store.name}}</h2>
+          <p>{{ store.address}}</p>
+
+        </button>
+      }
+    </div>
+
+    <div id="map"
+    class="col-span-2 z-0 w-full rounded-3xl bg-gray-200" style="height: 500px; min-height: 500px;">
+    </div>
+
+  </div>
+
+</div>
+

@@ -24,6 +24,7 @@ export class StoreLocationsComponent implements AfterViewInit, OnDestroy {
   public storeLocationsService = inject(StoreLocationsService);
   private mapService = inject(MapService);
 
+
   mode: 'view' | 'select' = 'view';
   @Input() initialCoords?: { lat: number; lng: number };
   showStoreMarkers: boolean = true;
@@ -38,6 +39,7 @@ export class StoreLocationsComponent implements AfterViewInit, OnDestroy {
 
   stores = this.storeLocationsService.storeLocations;
   selectedLocation = signal<{ lat: number; lng: number } | null>(null);
+  activeStoreId = signal<string | null>(null);
 
 
  ngAfterViewInit(): void {
@@ -128,4 +130,19 @@ export class StoreLocationsComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.mapService.destroyMap(this.containerId);
   }
+
+
+  focusStore(index: number): void {
+    if (!this.map || this.storeMarkers.length === 0) return
+
+    const marker = this.storeMarkers[index]
+
+    this.activeStoreId.set(this.stores()[index]._id)
+
+    if (marker) {
+      this.map.flyTo(marker.getLatLng(), 16, { duration: 1.5})
+    }
+    marker.openPopup()
+  }
+
 }
