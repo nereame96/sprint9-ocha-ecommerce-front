@@ -14,21 +14,44 @@
     </div>
   }
 
-@for (order of orders(); track order._id) {
 
-  <h3>{{ order._id}}</h3>
-  <p>{{order.createdAt | date:'dd/MM/yyyy HH:mm'}}</p>
-  <p>{{ order.totalAmount}}</p>
+  @for (order of orders(); track order._id) {
+    <div class="bg-white border border-gray-100 rounded-2xl p-6 mb-6 shadow-sm">
 
-  <div class="flex flex-col"></div>
-  @for (product of order.products; track $index) {
-    <!--<img src="" alt=""> -->
-    <h4>{{ product.name }}</h4>
-    <p>{{ product.unitPrice}}</p>
-    <p>{{ product.quantity}}</p>
+    <div class="flex justify-between items-center border-b border-gray-100 pb-4 mb-4">
+      <h3 class="text-gray-500 text-xl">{{order.createdAt | date:'dd/MM/yyyy HH:mm'}}</h3>
+      <p class="text-stone-500 text-md">{{ order._id}}</p>
+      <p>{{ order.totalAmount | currency: 'EUR'}}</p>
+    </div>
 
-  }
+  <div class="flex flex-col gap-4">
 
+    @for (product of order.products; track $index) {
+      <div class="flex flex-row items-center gap-4">
+        <img [src]="product.imageUrl" [alt]="product.name"
+          class="w-16 h-16 rounded-xl object-cover bg-gray-50">
+        <span class="font-medium">{{ product.name }}</span>
+        <span>{{ product.unitPrice | currency: 'EUR'}}</span>
+        <span>{{ product.quantity}}</span>
+
+      </div>
+
+    }
+
+    @for (customTea of order.customTeas; track $index) {
+      <div class="flex flex-row items-center gap-4">
+        <img [src]="customTea.imageUrl" [alt]="customTea.name"
+          class="w-16 h-16 rounded-xl object-cover bg-gray-50">
+        <span class="font-medium">{{ customTea.name }}</span>
+        <span>{{ customTea.unitPrice | currency: 'EUR'}}</span>
+        <span>{{ customTea.quantity}}</span>
+
+      </div>
+    }
+
+  </div>
+
+</div>
 
 } @empty {
   <a [routerLink]="['/products-list']" >No orders yet! Make your first order</a>

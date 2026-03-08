@@ -16,6 +16,7 @@ export class NavbarComponent {
   isAuthenticated = this.authService.isAuthenticated;
 
   isMenuOpen = signal(false);
+  isUserMenuOpen = signal(false)
 
   onLogout() {
     this.closeMenu();
@@ -35,4 +36,8 @@ export class NavbarComponent {
     this.isMenuOpen.set(false);
     document.body.style.overflow = '';
   }
+
+  toggleUserMenu() {
+  this.isUserMenuOpen.update(value => !value);
+}
 }
