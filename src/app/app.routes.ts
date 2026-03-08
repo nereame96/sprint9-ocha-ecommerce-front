@@ -7,6 +7,10 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { CartComponent } from './cart/cart';
 import { CustomTeaComponent } from './custom-tea/custom-tea';
 import { StoreLocationsComponent } from './store-locations/store-locations';
+import { ProfileInfoComponent } from './user/profile-info/profile-info';
+import { OrderHistoryComponent } from './user/order-history/order-history';
+import { UserProfileComponent } from './user/user-profile/user-profile';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   {
@@ -46,7 +50,19 @@ export const routes: Routes = [
   {
     path: 'store-locations',
     component: StoreLocationsComponent
-  }
+  },
+
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    canActivate: [authGuard],
+    children: [
+        { path: '', redirectTo: 'info', pathMatch: 'full' },
+        { path: 'info', component: ProfileInfoComponent } ,
+        { path: 'orders', component: OrderHistoryComponent },
+
+    ]
+  },
 
 
 ];

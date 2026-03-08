@@ -1,0 +1,42 @@
+<div>
+  <h2>My Orders</h2>
+
+  @if (loading()) {
+    <div class="animate-pulse space-y-4">
+      <div class="h-4 bg-gray-200 rounded w-1/4"></div>
+      <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+      <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+    </div>
+  }
+  @if (error()) {
+    <div class="bg-red-50 text-red-600 p-4 rounded-xl">
+      {{ error() }}
+    </div>
+  }
+
+@for (order of orders(); track order._id) {
+
+  <h3>{{ order._id}}</h3>
+  <p>{{order.createdAt | date:'dd/MM/yyyy HH:mm'}}</p>
+  <p>{{ order.totalAmount}}</p>
+
+  <div class="flex flex-col"></div>
+  @for (product of order.products; track $index) {
+    <!--<img src="" alt=""> -->
+    <h4>{{ product.name }}</h4>
+    <p>{{ product.unitPrice}}</p>
+    <p>{{ product.quantity}}</p>
+
+  }
+
+
+} @empty {
+  <a [routerLink]="['/products-list']" >No orders yet! Make your first order</a>
+
+}
+
+
+
+</div>
+
+

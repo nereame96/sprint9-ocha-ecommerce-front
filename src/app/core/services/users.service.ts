@@ -15,10 +15,13 @@ export class UsersService {
   private _users = signal<User[]>([])
   private _loading = signal<boolean>(false);
   private _error = signal<string | null>(null);
+  private _currentUserProfile = signal<User | null>(null)
 
-  user = this._users.asReadonly()
+  users = this._users.asReadonly()
   loading = this._loading.asReadonly()
   error = this._error.asReadonly()
+  isUserOpen = signal(false);
+  currentUserProfile = this._currentUserProfile.asReadonly()
 
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken()
@@ -44,20 +47,25 @@ export class UsersService {
       });
     }
 
-   getNewUsersByMonth() {
-    const users = this._users()
-    const counts = users.reduce((acc: any, user: User) => {
+   loadUserProfile(userId: string): void {
+    this._loading.set(true);
+    this._error.set(null);
 
-      const date = new Date(user.createdAt)
-      let month = date.toLocaleString( 'en-EN', {month: 'long'})
+    this.http.get<User>(`${this.apiUrl}/${userId}`, {headers: this.getHeaders() }).subscribe({
+      next: (user) => {
+          this._currentUserProfile.set(user);
+          this._loading.set(false);
+        },
+        error: (err) => {
+          this._error.set('Could not load your profile data.');
+          this._loading.set(false);
+        }
+    })
 
-      month = month.charAt(0).toUpperCase() + month.slice(1)
 
-      acc[month] = ( acc[month] || 0) + 1
+   }
 
-      return acc
-    }, {} )
-
-    return counts
+  toggleCart(): void {
+  this.isUserOpen.set(!this.isUserOpen());
   }
 }

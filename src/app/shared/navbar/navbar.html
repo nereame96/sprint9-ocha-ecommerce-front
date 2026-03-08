@@ -31,6 +31,10 @@
           Carrito ({{ cartService.totalItems() }})
         </button>
 
+        <button (click)="cartService.toggleCart()">
+          User ({{ cartService.totalItems() }})
+        </button>
+
         <button (click)="onLogout()"
            class="border-2 border-white text-stone-900 bg-white rounded-3xl
                   shadow-lg hover:shadow-2xl hover:scale-105 hover:bg-pink-300
@@ -72,7 +76,7 @@
              [routerLinkActiveOptions]="{exact: true}"
              class="text-indigo-700 hover:text-indigo-900 font-semibold
                     transition-all duration-300 text-2xl">
-            Eventos
+            SHOP
           </a>
           <a routerLink="/events/map"
              (click)="closeMenu()"
@@ -80,24 +84,9 @@
              [routerLinkActiveOptions]="{exact: true}"
              class="text-indigo-700 hover:text-indigo-900 font-semibold
                     transition-all duration-300 text-2xl">
-            Mapas
+            CUSTOM TEA
           </a>
-          <a routerLink="/calendar"
-             (click)="closeMenu()"
-             routerLinkActive="text-stone-700"
-             [routerLinkActiveOptions]="{exact: false}"
-             class="text-indigo-700 hover:text-indigo-900 font-semibold
-                    transition-all duration-300 text-2xl">
-            Calendario
-          </a>
-          <a routerLink="/dashboard"
-             (click)="closeMenu()"
-             routerLinkActive="text-stone-700"
-             [routerLinkActiveOptions]="{exact: false}"
-             class="text-indigo-700 hover:text-indigo-900 font-semibold
-                    transition-all duration-300 text-2xl">
-            Gráficos
-          </a>
+
 
           <button (click)="onLogout()"
              class="border-2 border-white text-stone-900 bg-white rounded-3xl
