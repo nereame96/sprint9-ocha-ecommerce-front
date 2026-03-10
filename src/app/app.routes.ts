@@ -11,6 +11,7 @@ import { ProfileInfoComponent } from './user/profile-info/profile-info';
 import { OrderHistoryComponent } from './user/order-history/order-history';
 import { UserProfileComponent } from './user/user-profile/user-profile';
 import { authGuard } from './guards/auth-guard';
+import { CheckoutComponent } from './checkout/checkout';
 
 export const routes: Routes = [
   {
@@ -63,6 +64,11 @@ export const routes: Routes = [
 
     ]
   },
+
+  {
+    path: 'checkout',
+    component: CheckoutComponent
+  }
 
 
 ];

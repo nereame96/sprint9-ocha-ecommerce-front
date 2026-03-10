@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { OrderModel } from '../models/order.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +28,6 @@ export class OrdersService {
     })
   }
 
-
-
   loadUserOrders(): void {
       this._loading.set(true);
       this._error.set(null);
@@ -44,6 +43,15 @@ export class OrdersService {
           }
       })
 
-
      }
+
+  createCheckoutSession(orderPayload: any): Observable<{ url: string }> {
+    return this.http.post<{ url: string }>(
+      `${this.apiUrl}/create-checkout-session`,
+      orderPayload,
+      { headers: this.getHeaders() }
+    );
+  }
+
+
 }

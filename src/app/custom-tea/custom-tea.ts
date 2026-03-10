@@ -22,6 +22,8 @@ export class CustomTeaComponent {
   selectedSize = signal<Size | null>(null);
   currentName = signal<string>('');
 
+  isLoading = signal<boolean>(false);
+
   baseList = Object.values(Base);
   ingredientsList = Object.values(Ingredients);
   sizeList = Object.values(Size);
@@ -63,7 +65,7 @@ export class CustomTeaComponent {
       calculatedPrice: this.currentPrice(),
       intensity: this.currentIntensity(),
       size: currentSize,
-      imageUrl: 'assets/default-custom-tea.jpg', //falta poner una imagen
+      imageUrl: '/assets/default-custom-tea.jpg', //falta poner una imagen
     };
   });
 
@@ -96,13 +98,35 @@ export class CustomTeaComponent {
     this.currentName.set(name);
   }
 
-  addToCart() {
+  async addToCart(): Promise<void> {
     const customTea = this.customTea();
 
-    if (customTea) {
-      this.cartService.addCustomTea(customTea, 1);
-    } else {
+    if (!customTea) {
       alert('Please select a base and size before adding to cart');
+      return
     }
+
+    try {
+      this.isLoading.set(true)
+
+      await this.cartService.addCustomTea(customTea, 1)
+
+      alert('Custom tea added to Cart')
+
+      this.resetForm()
+
+    } catch (error) {
+      alert('Error adding Custom tea to Cart. Please, try again.')
+
+    } finally {
+      this.isLoading.set(false)
+    }
+  }
+
+  private resetForm(): void {
+    this.selectedBase.set(null);
+    this.selectedIngredients.set([]);
+    this.selectedSize.set(null);
+    this.currentName.set('');
   }
 }

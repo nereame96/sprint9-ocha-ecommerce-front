@@ -1,8 +1,10 @@
 import { CustomTeaBuilder, CustomTeaModel } from './../models/custom-tea.interface';
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { ProductModel } from '../models/product.interface';
 import { CartItem } from '../models/cart-item.interface';
 import { CreateCustomTeaDto } from '../models/custom-tea.interface';
+import { CustomTeaService } from './custom-tea.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +12,7 @@ import { CreateCustomTeaDto } from '../models/custom-tea.interface';
 export class CartService {
 
   private readonly STORAGE_KEY = 'tea_cart';
+  private customTeaService = inject(CustomTeaService)
 
   items = signal<CartItem[]>([]);
 
@@ -61,14 +64,38 @@ export class CartService {
 
 }
 
-addCustomTea(customTea: CustomTeaModel | CustomTeaBuilder, quantity: number = 1): void {
-  const items = this.items();
-  const realCustomTeaId = (customTea as CustomTeaModel)._id
-  let existingIndex = -1;
+async addCustomTea(customTea: CustomTeaModel | CustomTeaBuilder, quantity: number = 1): Promise<void> {
 
-  if (realCustomTeaId) {
-    existingIndex = items.findIndex(item => item.type === 'custom-tea' && item.customTeaId === realCustomTeaId )
-}
+  let customTeaWithId: CustomTeaModel
+
+  if ('_id' in customTea && customTea._id) {
+    customTeaWithId = customTea as CustomTeaModel
+  } else {
+
+    try {
+      const dto: CreateCustomTeaDto = {
+        name: customTea.name || 'My custom-tea',
+        base: customTea.base!,
+        ingredients: customTea.ingredients || [],
+        intensity: customTea.intensity!,
+        size: customTea.size!,
+        calculatedPrice: customTea.calculatedPrice! || 0,
+        imageUrl: customTea.imageUrl || '/assets/default-custom-tea.jpg'
+
+      }
+
+      customTeaWithId = await firstValueFrom(this.customTeaService.createCustomTea(dto))
+
+    } catch (error) {
+      throw error
+    }
+
+  }
+
+
+  const items = this.items();
+  const existingIndex = items.findIndex(item => item.type === 'custom-tea' && item.customTeaId === customTeaWithId._id )
+
 
   if (existingIndex > -1) {
     items[existingIndex].quantity += quantity
@@ -76,16 +103,14 @@ addCustomTea(customTea: CustomTeaModel | CustomTeaBuilder, quantity: number = 1)
   } else {
 
     items.push({
-      id: `custom-tea-${Date.now()}`,
+      id: `custom-tea-${customTeaWithId._id}`,
       type: 'custom-tea',
-      customTeaId: realCustomTeaId,
-      name: customTea.name || 'Custom Tea',
-      imageUrl: customTea.imageUrl || 'assets/default-custom-tea.jpg',
+      customTeaId: customTeaWithId._id,
+      name: customTeaWithId.name,
+      imageUrl: customTeaWithId.imageUrl || '/assets/default-custom-tea.jpg',
       quantity,
-      unitPrice: customTea.calculatedPrice || 0,
-      totalPrice: (customTea.calculatedPrice || 0) * quantity,
-
-
+      unitPrice: customTeaWithId.calculatedPrice,
+      totalPrice: customTeaWithId.calculatedPrice * quantity,
       });
   }
 

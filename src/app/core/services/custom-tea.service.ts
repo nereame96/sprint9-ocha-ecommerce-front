@@ -1,10 +1,71 @@
-import { Injectable } from '@angular/core';
-import { CreateCustomTeaDto } from '../models/custom-tea.interface';
+import { inject, Injectable, signal } from '@angular/core';
+import { CreateCustomTeaDto, CustomTeaModel } from '../models/custom-tea.interface';
+import { environment } from '../../../environments/environment';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomTeaService {
+
+  private apiUrl = environment.apiUrl + '/custom-tea'
+  private authService = inject(AuthService)
+  private router = inject(Router)
+
+  private _customTeas = signal<CustomTeaModel[]>([])
+  private _loading = signal<boolean>(false)
+  private _error = signal<string | null>(null)
+
+  customTeas = this._customTeas.asReadonly();
+  loading = this._loading.asReadonly();
+  error = this._error.asReadonly();
+
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken()
+    return new HttpHeaders ({
+      'Authorization': `Bearer ${token}`
+    })
+  }
+
+  constructor(private http: HttpClient) {}
+
+
+  loadCustomTeas(): void {
+      this._loading.set(true)
+      this._error.set(null)
+
+      this.http.get<CustomTeaModel[]>(this.apiUrl, { headers: this.getHeaders()}).subscribe({
+        next: (customTeas) => {
+          this._customTeas.set(customTeas)
+          this._loading.set(false)
+        },
+        error: (err) => {
+          this._error.set('Error loading the events')
+          this._loading.set(false)
+        }
+      })
+    }
+
+    createCustomTea(customTeaDto: CreateCustomTeaDto): Observable<CustomTeaModel> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    return this.http.post<CustomTeaModel>(this.apiUrl, customTeaDto, { headers: this.getHeaders()}).pipe(
+      tap((newCustomTea) => {
+        this._customTeas.update(customTeas => [...customTeas, newCustomTea]);
+        this._loading.set(false);
+      }),
+      catchError((err) => {
+        this._error.set('Error creating custom tea');
+        this._loading.set(false);
+        return throwError(() => err);
+      })
+    );
+  }
+
 
   calculatePrice(customTea: CreateCustomTeaDto): number {
 
