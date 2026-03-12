@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { CartService } from '../core/services/cart.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
@@ -11,7 +12,7 @@ export class CartComponent {
 
   cartService = inject(CartService)
 
-  
+
 
   increaseQty(itemId: string): void {
     const item = this.cartService.items().find( item => item.id === itemId)

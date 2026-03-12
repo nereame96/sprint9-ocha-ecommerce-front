@@ -12,6 +12,7 @@ import { OrderHistoryComponent } from './user/order-history/order-history';
 import { UserProfileComponent } from './user/user-profile/user-profile';
 import { authGuard } from './guards/auth-guard';
 import { CheckoutComponent } from './checkout/checkout';
+import { CheckoutSuccessComponent } from './checkout-success/checkout-success';
 
 export const routes: Routes = [
   {
@@ -48,26 +49,50 @@ export const routes: Routes = [
     path: 'cart',
     component: CartComponent
   },
+
   {
     path: 'store-locations',
     component: StoreLocationsComponent
   },
 
   {
-    path: 'profile',
-    component: UserProfileComponent,
-    canActivate: [authGuard],
-    children: [
-        { path: '', redirectTo: 'info', pathMatch: 'full' },
-        { path: 'info', component: ProfileInfoComponent } ,
-        { path: 'orders', component: OrderHistoryComponent },
-
-    ]
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
 
   {
-    path: 'checkout',
-    component: CheckoutComponent
+    path: '',
+    canActivate: [authGuard],
+    children: [
+    {
+      path: 'profile',
+      component: UserProfileComponent,
+      children: [
+          { path: '', redirectTo: 'info', pathMatch: 'full' },
+          { path: 'info', component: ProfileInfoComponent } ,
+          { path: 'orders', component: OrderHistoryComponent },
+
+      ]
+    },
+
+    {
+      path: 'checkout',
+      component: CheckoutComponent
+    },
+
+    {
+      path: 'checkout/success',
+      component: CheckoutSuccessComponent
+    },
+  ]
+
+  },
+
+
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 
 

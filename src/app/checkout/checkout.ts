@@ -75,6 +75,8 @@ export class CheckoutComponent {
 
     console.log('📦 Solicitando sesión de pago a Stripe...');
 
+    localStorage.setItem('pending_order', JSON.stringify(orderPayload));
+
   // Delegamos el trabajo sucio al servicio
   this.ordersService.createCheckoutSession(orderPayload).subscribe({
     next: (response) => {

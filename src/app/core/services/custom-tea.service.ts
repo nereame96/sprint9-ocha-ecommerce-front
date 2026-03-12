@@ -76,7 +76,7 @@ export class CustomTeaService {
       'Gyokuro': 10,
     }
 
-    const sizeMultiplier: Record<string, number> = { //tocara cambiar quantity por size, es confuso, revisar el addCustomTea to cart
+    const sizeMultiplier: Record<string, number> = { 
     '50gr': 1,
     '100gr': 1.8,
     '250gr': 2.5

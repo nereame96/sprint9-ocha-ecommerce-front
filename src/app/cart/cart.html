@@ -37,7 +37,7 @@
 
         <div>
           <button (click)="removeItem(item.id)">Delete</button>
-          <span>{{ item.totalPrice}}</span>
+          <span>{{ item.totalPrice | currency: 'EUR'}}</span>
         </div>
       </div>
     } @empty {
@@ -51,7 +51,7 @@
   <div>
     <div>
       <span>Total:</span>
-      <span>{{ cartService.totalAmount()}}</span>
+      <span>{{ cartService.totalAmount() | currency: 'EUR'}}</span>
     </div>
 
     <div>

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, Injector, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 // import { environment } from '../../../environments/environment.prod';  Luego sera este para el deploy***
 import { environment } from '../../../environments/environment'; // Y se quitara ESTE
+import { CartService } from './cart.service';
 
 interface JwtPayload {
   userName: string;
@@ -18,6 +19,7 @@ interface JwtPayload {
 })
 export class AuthService {
   private API_URL = environment.apiUrl;
+  private injector = inject(Injector)
 
   isAuthenticated = signal<boolean>(false)
   currentUser = signal<string | null>(null)
@@ -78,6 +80,9 @@ export class AuthService {
     this.isAuthenticated.set(false)
     this.currentUser.set(null)
     this.currentUserId.set(null);
+
+    const cartService = this.injector.get(CartService)
+    cartService.clear()
     this.router.navigate(['/login'])
   }
 
