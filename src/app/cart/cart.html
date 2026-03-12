@@ -55,7 +55,9 @@
     </div>
 
     <div>
-      <button>CheckOut</button>
+      <button
+        routerLink="/checkout"
+        (click)="cartService.toggleCart()">CheckOut</button>
 
       @if (cartService.items().length > 0) {
         <button (click)="clearCart()">Clear cart</button>
