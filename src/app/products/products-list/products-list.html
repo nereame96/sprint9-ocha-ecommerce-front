@@ -1,44 +1,89 @@
-<div class="flex flex-wrap gap-3 mb-8 justify-center">
+<section class="mb-16">
+  <div
+    class="flex items-center justify-center gap-8 md:gap-16 border-b border-gray-100 overflow-x-auto pb-4"
+    role="tablist"
+    aria-label="Tea category filter">
 
-  <button
-    (click)="onSelectCategory(null)"
-    class="px-4 py-2 rounded-full border transition-colors"
-    [class.bg-green-700]="selectedCategory() === null"
-    [class.text-white]="selectedCategory() === null"
-    [class.bg-white]="selectedCategory() !== null">
-    All
-  </button>
-
-  @for (category of categoryList; track category) {
     <button
-      (click)="onSelectCategory(category)"
-      class="px-4 py-2 rounded-full border transition-colors"
-      [class.bg-green-700]="selectedCategory() === category"
-      [class.text-white]="selectedCategory() === category"
-      [class.bg-white]="selectedCategory() !== category">
-      {{ category }}
+      role="tab"
+      [attr.aria-selected]="selectedCategory() === null"
+      (click)="onSelectCategory(null)"
+      class="text-xs uppercase tracking-[0.2em] font-bold pb-4 -mb-4.5 transition-colors"
+      [class.text-[#87af4b]]="selectedCategory() === null"
+      [class.border-b-2]="selectedCategory() === null"
+      [class.border-[#87af4b]]="selectedCategory() === null"
+      [class.text-gray-400]="selectedCategory() !== null"
+      [class.hover:text-black]="selectedCategory() !== null">
+      All
     </button>
-  }
-</div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    @for (category of categoryList; track category) {
+      <button
+        role="tab"
+        [attr.aria-selected]="selectedCategory() === category"
+        (click)="onSelectCategory(category)"
+        class="text-xs uppercase tracking-[0.2em] font-bold pb-4 -mb-4.5 transition-colors"
+        [class.text-[#87af4b]]="selectedCategory() === category"
+        [class.border-b-2]="selectedCategory() === category"
+        [class.border-[#87af4b]]="selectedCategory() === category"
+        [class.text-gray-400]="selectedCategory() !== category"
+        [class.hover:text-black]="selectedCategory() !== category">
+        {{ category }}
+      </button>
+    }
+  </div>
+</section>
+
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
 
   @for (product of filteredProducts(); track product._id) {
+    <article class="group flex flex-col">
 
-    <div class="border rounded-xl p-4 shadow-sm flex flex-col justify-between">
+      <div class="aspect-4/5 overflow-hidden rounded-lg bg-[#fcfcfc] mb-6 relative">
 
-      <a [routerLink]="['/product-detail', product._id]" class="block mb-4 cursor-pointer hover:opacity-80">
-        <h3 class="font-bold text-xl mb-2">{{ product.name }}</h3>
-        <span class="block text-green-700 font-semibold">{{ product.price }} €</span>
-        <span class="block text-gray-500 text-sm">{{ product.quantity }}</span>
-      </a>
+        <a
+          [routerLink]="['/product-detail', product._id]"
+          [attr.aria-label]="'See details of' + product.name"
+          class="block w-full h-full">
+          <img
+            [src]="product.imageUrl"
+            [alt]="product.name"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+        </a>
 
-      <button
-        (click)="cartService.addProduct(product, 1)"
-        class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">
-        Add to Cart
-      </button>
+        <button
+          (click)="cartService.addProduct(product, 1)"
+          [attr.aria-label]="'Add ' + product.name + ' to cart'"
+          class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-[10px] text-black font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 duration-300 hover:bg-[#87af4b] hover:text-white z-10">
+          Add to Cart
+        </button>
+      </div>
 
-    </div>
+      <div class="flex justify-between items-start">
+        <div>
+          <a [routerLink]="['/product-detail', product._id]">
+            <h3 class="text-sm font-semibold tracking-tight uppercase mb-1 hover:text-[#87af4b] transition-colors">
+              {{ product.name }}
+            </h3>
+          </a>
+          <p class="text-xs text-gray-500 font-light tracking-wide italic mb-3">
+            Available: {{ product.quantity }} units
+          </p>
+        </div>
+        <span class="text-sm font-medium text-[#87af4b] whitespace-nowrap ml-4">
+          {{ product.price }} €
+        </span>
+      </div>
+
+    </article>
   }
-</div>
+
+</section>
+
+@if (filteredProducts().length === 0) {
+  <div class="flex flex-col items-center justify-center text-center p-12 bg-[#87af4b]/5 rounded-lg border border-dashed border-[#87af4b]/20 col-span-full mt-8">
+    <p class="text-sm italic font-light leading-relaxed">"New teas for this category soon..."</p>
+    <div class="mt-6 w-8 h-px bg-[#87af4b]/40"></div>
+  </div>
+}
