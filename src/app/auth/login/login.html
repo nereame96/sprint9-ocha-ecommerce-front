@@ -1,32 +1,75 @@
-<div class="flex flex-col justify-center items-center min-h-[calc(100vh-150px)] px-4">
+<div class="min-h-[calc(100vh-100px)] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 bg-stone-50/30">
 
-  <form class="bg-white w-full max-w-sm mx-auto px-6 py-8 flex flex-col justify-center text-center border-none rounded-2xl shadow-lg ring-2 ring-green-300 focus-within:ring-gray-300 transition-all"
-        [formGroup]="loginForm"
-        (ngSubmit)="onSubmit()">
+  <div class="w-full max-w-md bg-white p-8 md:p-12 border border-gray-100 shadow-sm rounded-sm">
 
-    <h1 class="text-2xl md:text-3xl mb-4 md:mb-5 font-bold">Inicio sesión</h1>
+    <h1 class="text-3xl font-light tracking-[0.2em] uppercase text-center text-gray-900 mb-10">
+      Log In
+    </h1>
 
-    <input type="text" placeholder="Usuario" formControlName="userName"
-      class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-3 md:my-4 placeholder-gray-500 bg-transparent outline-none">
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="space-y-8"
+      aria-label="Log In form">
 
-    <input type="password" placeholder="Password" formControlName="password"
-      class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-3 md:my-4 placeholder-gray-500 bg-transparent outline-none">
-
-    <button class="border-green-300 border-2 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-105 hover:bg-pink-200
-      hover:text-gray-950 transition-all duration-300 cursor-pointer px-4 py-3 md:py-2 text-black my-4 font-semibold">
-      Iniciar sesión
-    </button>
-
-    @if (errorMessage()) {
-      <div class="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-4 text-sm">
-        {{ errorMessage() }}
+      <div class="relative">
+        <label for="userName" class="sr-only">User</label>
+        <input
+          id="userName"
+          type="text"
+          formControlName="userName"
+          placeholder="Username"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="loginForm.get('userName')?.invalid && loginForm.get('userName')?.touched">
       </div>
-    }
 
-    <div class="text-sm md:text-base">
-      <span class="text-gray-500">No tienes una cuenta? </span>
-      <a routerLink="/register" class="font-semibold text-pink-500 hover:underline">Regístrate aquí</a>
-    </div>
+      <div class="relative">
+        <label for="password" class="sr-only">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      </div>
 
-  </form>
+      @if (errorMessage()) {
+        <div
+          class="text-red-500 text-xs text-center font-medium tracking-wide"
+          role="alert"
+          aria-live="assertive">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <button
+        type="submit"
+        [disabled]="isLoading()"
+        class="w-full bg-black text-white px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#87af4b] transition-colors duration-300 rounded-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+        aria-label="Iniciar sesión en Ocha">
+
+        @if (isLoading()) {
+          <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Authenticating...
+        } @else {
+          Log In
+        }
+
+      </button>
+
+      <div class="text-center pt-6 border-t border-gray-50">
+        <span class="text-xs text-gray-400 font-light">New to Ocha? </span>
+        <a routerLink="/register" class="text-xs font-bold uppercase tracking-widest text-[#87af4b] hover:text-black transition-colors ml-2">
+          Create Account
+        </a>
+      </div>
+
+    </form>
+  </div>
 </div>

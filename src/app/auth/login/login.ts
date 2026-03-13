@@ -39,7 +39,7 @@ export class LoginComponent {
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        this.isLoading.set(true)
+        this.isLoading.set(false)
         this.router.navigate(['/home'])
       },
       error: (error) => {

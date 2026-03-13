@@ -1,51 +1,112 @@
-<div class="flex flex-col justify-center items-center min-h-[calc(100vh-150px)] px-4">
+<div class="min-h-[calc(100vh-100px)] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 bg-stone-50/30 py-12">
 
-  <form class="bg-white w-full max-w-sm mx-auto px-6 py-8 flex flex-col justify-center text-center border-none rounded-2xl shadow-lg ring-2 ring-green-300 focus-within:ring-gray-300 transition-all"
-        [formGroup]="registerForm"
-        (ngSubmit)="onSubmit()"
-        >
+  <div class="w-full max-w-md bg-white p-8 md:p-12 border border-gray-100 shadow-sm rounded-sm">
 
-    <h1 class="text-2xl md:text-3xl mb-4 md:mb-5 font-bold">Registro</h1>
+    <h1 class="text-3xl font-light tracking-[0.2em] uppercase text-center text-gray-900 mb-10">
+      Create Account
+    </h1>
 
-    <input type="text" placeholder="Usuario" formControlName="userName"
-           class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-2 md:my-3 placeholder-gray-500 bg-transparent outline-none">
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="space-y-6"
+      aria-label="Formulario de registro">
 
-    <input type="text" placeholder="Nombre" formControlName="name"
-           class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-2 md:my-3 placeholder-gray-500 bg-transparent outline-none">
-
-    <input type="email" placeholder="Email" formControlName="email"
-             class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-2 md:my-3 placeholder-gray-500 bg-transparent outline-none">
-
-    <input type="password" placeholder="Password" formControlName="password"
-           class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-2 md:my-3 placeholder-gray-500 bg-transparent outline-none">
-
-    <input type="password" placeholder="Confirmar Password" formControlName="confirmPassword"
-           class="border-none rounded-xl ring-2 ring-gray-500 focus:ring-gray-300 focus:ring-2 px-4 py-3 md:py-2 my-2 md:my-3 placeholder-gray-500 bg-transparent outline-none">
-
-    
-
-
-
-    <button type="submit" [disabled]="isLoading()"
-            class="border-pink-500 border-2 rounded-3xl shadow-lg hover:shadow-2xl hover:scale-105 hover:bg-pink-200
-                   hover:text-gray-950 transition-all duration-300 cursor-pointer px-4 py-3 md:py-2 text-black my-4 font-semibold">Regístrate</button>
-
-
-
-    @if (successMessage()) {
-    <div class="success">{{ successMessage() }}</div>
-  }
-
-    @if (errorMessage()) {
-      <div class="bg-red-500/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-4 text-sm">
-        {{ errorMessage() }}
+      <div class="relative">
+        <label for="userName" class="sr-only">User</label>
+        <input
+          id="userName"
+          type="text"
+          formControlName="userName"
+          placeholder="Username"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched">
       </div>
-    }
 
-    <div class="text-sm md:text-base">
-      <span class="text-gray-500">Ya tienes una cuenta? </span>
-      <a routerLink="/login" class="font-semibold text-pink-500 hover:underline">Inicia sesión</a>
-    </div>
+      <div class="relative">
+        <label for="name" class="sr-only">Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Full Name"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+      </div>
 
-  </form>
+      <div class="relative">
+        <label for="email" class="sr-only">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Email Address"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      </div>
+
+      <div class="relative">
+        <label for="password" class="sr-only">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      </div>
+
+      <div class="relative">
+        <label for="confirmPassword" class="sr-only">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Confirm Password"
+          aria-required="true"
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+      </div>
+
+      @if (successMessage()) {
+        <div class="text-[#87af4b] bg-[#87af4b]/10 border border-[#87af4b]/20 px-4 py-3 rounded-sm text-xs text-center font-medium tracking-wide" role="status">
+          {{ successMessage() }}
+        </div>
+      }
+
+      @if (errorMessage()) {
+        <div class="text-red-500 text-xs text-center font-medium tracking-wide" role="alert" aria-live="assertive">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <button
+        type="submit"
+        [disabled]="isLoading()"
+        class="w-full bg-black text-white mt-4 px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#87af4b] transition-colors duration-300 rounded-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center">
+
+        @if (isLoading()) {
+          <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Registering...
+        } @else {
+          Create Account
+        }
+      </button>
+
+      <div class="text-center pt-6 border-t border-gray-50">
+        <span class="text-xs text-gray-400 font-light">Already have an account? </span>
+        <a routerLink="/login" class="text-xs font-bold uppercase tracking-widest text-[#87af4b] hover:text-black transition-colors ml-2">
+          Log In
+        </a>
+      </div>
+
+    </form>
+  </div>
 </div>
