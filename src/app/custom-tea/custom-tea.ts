@@ -73,16 +73,19 @@ export class CustomTeaComponent {
     this.selectedIngredients.update((currentIngredients) => {
       const haveIngredient = currentIngredients.includes(ingredient);
 
-      if (haveIngredient) {
+     if (currentIngredients.includes(ingredient)) {
         return currentIngredients.filter((item) => item !== ingredient);
-      } else {
-        if (currentIngredients.length >= 4) {
-          alert('Max. 4 ingredients is allow');
-          return currentIngredients;
-        } else {
-          return [...currentIngredients, ingredient];
-        }
       }
+
+
+      if (currentIngredients.length >= 4) {
+        alert('Max. 4 ingredients allowed');
+        return currentIngredients;
+      }
+
+      return [...currentIngredients, ingredient];
+
+      
     });
   }
 
