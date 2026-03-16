@@ -21,7 +21,7 @@ export class ProductDetailComponent {
   quantity = signal<number>(1);
 
   private loadProductsEffect = effect(() => {
-    //creado una propiedad privada nos ahorrramos el constructor
+    
     const productId = this.id();
 
     if (productId) {
@@ -57,7 +57,7 @@ export class ProductDetailComponent {
 
     if (product) {
       this.cartService.addProduct(product, qty);
-      // this.snackBar.open(`${qty} unit/s added to the car`, 'OK', {duration: 2000})
+
     }
   }
 }

@@ -1,9 +1,9 @@
-// store-locations.service.ts
+
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';  // ← Importar of
-import { tap, catchError } from 'rxjs/operators';  // ← Importar operadores
+import { Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { StoreLocation } from '../models/store-location.interface';
 
 @Injectable({
@@ -22,38 +22,25 @@ export class StoreLocationsService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Retorna Observable para poder suscribirse
+
   loadStoreLocations(): Observable<StoreLocation[]> {
-    console.log('🔄 [SERVICE] Loading stores from:', this.apiUrl);
+
 
     this._loading.set(true);
     this._error.set(null);
 
     return this.http.get<StoreLocation[]>(this.apiUrl).pipe(
       tap((stores: StoreLocation[]) => {
-        console.log('✅ [SERVICE] API Response:', stores);
-        console.log('✅ [SERVICE] Number of stores:', stores?.length || 0);
-
-        if (stores && stores.length > 0) {
-          stores.forEach((store: StoreLocation, index: number) => {
-            console.log(`[SERVICE] Store ${index}:`, {
-              name: store.name,
-              lat: store.lat,
-              lng: store.lng,
-              hasValidCoords: !!(store.lat && store.lng)
-            });
-          });
-        }
 
         this._storeLocations.set(stores);
-        console.log('✅ [SERVICE] Signal updated');
+
         this._loading.set(false);
       }),
       catchError((err: any) => {
-        console.error('❌ [SERVICE] Error:', err);
+        console.error('[SERVICE] Error:', err);
         this._error.set('Error loading the store locations');
         this._loading.set(false);
-        return of([]); // Retornar array vacío en caso de error
+        return of([]);
       })
     );
   }

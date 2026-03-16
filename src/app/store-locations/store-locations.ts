@@ -58,11 +58,11 @@ export class StoreLocationsComponent implements AfterViewInit, OnDestroy {
 }
 
   private loadAndPaintStores(): void {
-  console.log('Loading stores...');
+
 
   this.storeLocationsService.loadStoreLocations().subscribe({
     next: (stores) => {
-      console.log('Stores loaded:', stores);
+
 
       if (stores && stores.length > 0) {
         this.paintStoreMarkers(stores);
@@ -124,7 +124,6 @@ export class StoreLocationsComponent implements AfterViewInit, OnDestroy {
     this.mapService.removeMarkers(this.storeMarkers);
     this.storeMarkers = this.mapService.createStoreMarkers(this.map, stores);
 
-    console.log(`Marcadores pintados: ${this.storeMarkers.length} de ${stores.length}`);
   }
 
   ngOnDestroy(): void {

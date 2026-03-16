@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/navbar/navbar';
 import { CartComponent } from './cart/cart';
 import { FooterComponent } from './layout/footer/footer';
+import { ToastService } from './core/services/toast';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,5 @@ import { FooterComponent } from './layout/footer/footer';
 })
 export class App {
   protected readonly title = signal('sprint9-ocha-ecommerce-front');
+  public toastService = inject(ToastService);
 }

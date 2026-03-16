@@ -6,6 +6,7 @@ import { Size } from '../core/enums/size.enum';
 import { FormBuilder, FormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { CreateCustomTeaDto } from '../core/models/custom-tea.interface';
 import { CartService } from '../core/services/cart.service';
+import { ToastService } from '../core/services/toast';
 
 @Component({
   selector: 'app-custom-tea',
@@ -16,6 +17,7 @@ import { CartService } from '../core/services/cart.service';
 export class CustomTeaComponent {
   customTeaService = inject(CustomTeaService);
   cartService = inject(CartService);
+  private toastService = inject(ToastService);
 
   selectedBase = signal<Base | null>(null);
   selectedIngredients = signal<Ingredients[]>([]);
@@ -65,7 +67,7 @@ export class CustomTeaComponent {
       calculatedPrice: this.currentPrice(),
       intensity: this.currentIntensity(),
       size: currentSize,
-      imageUrl: '/assets/default-custom-tea.jpg', //falta poner una imagen
+      imageUrl: '/assets/default-custom-tea.jpg',
     };
   });
 
@@ -79,13 +81,13 @@ export class CustomTeaComponent {
 
 
       if (currentIngredients.length >= 4) {
-        alert('Max. 4 ingredients allowed');
+        this.toastService.show('Max. 4 ingredients allowed', 'info');
         return currentIngredients;
       }
 
       return [...currentIngredients, ingredient];
 
-      
+
     });
   }
 
@@ -105,7 +107,7 @@ export class CustomTeaComponent {
     const customTea = this.customTea();
 
     if (!customTea) {
-      alert('Please select a base and size before adding to cart');
+      this.toastService.show('Please select a base and size before adding to cart', 'error');
       return
     }
 
@@ -114,12 +116,10 @@ export class CustomTeaComponent {
 
       await this.cartService.addCustomTea(customTea, 1)
 
-      alert('Custom tea added to Cart')
-
       this.resetForm()
 
     } catch (error) {
-      alert('Error adding Custom tea to Cart. Please, try again.')
+      this.toastService.show('Error adding Custom tea to Cart. Please, try again.', 'error');
 
     } finally {
       this.isLoading.set(false)

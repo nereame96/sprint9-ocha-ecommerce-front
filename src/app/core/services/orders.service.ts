@@ -53,9 +53,8 @@ export class OrdersService {
     );
   }
 
-  // Añade esto en tu OrdersService
+
   createOrder(orderData: any): Observable<any> {
-    // Hacemos un POST a tu ruta base de NestJS (/order)
     return this.http.post(this.apiUrl, orderData, { headers: this.getHeaders() });
   }
 

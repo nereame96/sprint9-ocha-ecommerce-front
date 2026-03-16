@@ -5,6 +5,7 @@ import { CartItem } from '../models/cart-item.interface';
 import { CreateCustomTeaDto } from '../models/custom-tea.interface';
 import { CustomTeaService } from './custom-tea.service';
 import { firstValueFrom } from 'rxjs';
+import { ToastService } from './toast';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class CartService {
 
   private readonly STORAGE_KEY = 'tea_cart';
   private customTeaService = inject(CustomTeaService)
+  private toastService = inject(ToastService)
 
   items = signal<CartItem[]>([]);
 
@@ -61,6 +63,7 @@ export class CartService {
 
   this.items.set([...items])
   this.saveToStorage()
+  this.toastService.show(`${product.name} added to cart`, 'success');
 
 }
 
@@ -87,6 +90,7 @@ async addCustomTea(customTea: CustomTeaModel | CustomTeaBuilder, quantity: numbe
       customTeaWithId = await firstValueFrom(this.customTeaService.createCustomTea(dto))
 
     } catch (error) {
+      this.toastService.show('Error creating your custom tea', 'error');
       throw error
     }
 
@@ -117,6 +121,7 @@ async addCustomTea(customTea: CustomTeaModel | CustomTeaBuilder, quantity: numbe
 
     this.items.set([...items]);
     this.saveToStorage();
+    this.toastService.show('Custom tea added to cart', 'success');
 }
 
 updateQty(itemId: string, newQuantity: number): void {
@@ -142,6 +147,7 @@ removeItem(itemId: string): void {
 clear(): void {
     this.items.set([]);
     localStorage.removeItem(this.STORAGE_KEY);
+    this.toastService.show('Cart cleared', 'info');
   }
 
 

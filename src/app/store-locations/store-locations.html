@@ -1,44 +1,52 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24 antialiased text-gray-900">
-
   <header class="mb-16 text-center lg:text-left border-b border-gray-100 pb-10">
     <h1 class="text-4xl md:text-5xl font-light tracking-tight mb-4 uppercase">Find Ocha</h1>
     <p class="text-gray-500 max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
-      Experience the art of Japanese tea in person. Visit our physical boutiques across Barcelona for tastings, ceremonies, and expert guidance.
+      Experience the art of Japanese tea in person. Visit our physical boutiques across Barcelona
+      for tastings, ceremonies, and expert guidance.
     </p>
   </header>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-
     <div class="lg:col-span-5 flex flex-col gap-4" role="list" aria-label="List of Ocha Shops">
-
       @for (store of stores(); track store._id; let i = $index) {
-
         <button
           role="listitem"
           [attr.aria-current]="activeStoreId() === store._id ? 'true' : 'false'"
           (click)="focusStore(i)"
           class="w-full text-left p-6 border transition-all duration-300 rounded-sm group flex flex-col gap-3"
-          [class.border-[#87af4b]]="activeStoreId() === store._id"
-          [class.bg-[#87af4b]/5]="activeStoreId() === store._id"
+          [class.border-matcha]="activeStoreId() === store._id"
+          [class.bg-matcha/5]="activeStoreId() === store._id"
           [class.border-gray-200]="activeStoreId() !== store._id"
           [class.bg-white]="activeStoreId() !== store._id"
-          [class.hover:border-gray-400]="activeStoreId() !== store._id">
-
+          [class.hover:border-gray-400]="activeStoreId() !== store._id"
+        >
           <div class="flex justify-between items-center">
-            <h2 class="text-xs font-bold uppercase tracking-[0.2em] transition-colors"
-                [class.text-[#87af4b]]="activeStoreId() === store._id"
-                [class.text-gray-900]="activeStoreId() !== store._id">
+            <h2
+              class="text-xs font-bold uppercase tracking-[0.2em] transition-colors"
+              [class.text-matcha]="activeStoreId() === store._id"
+              [class.text-gray-900]="activeStoreId() !== store._id"
+            >
               {{ store.name }}
             </h2>
 
-            <svg class="w-5 h-5 transition-all duration-300"
-                 [class.text-[#87af4b]]="activeStoreId() === store._id"
-                 [class.text-gray-300]="activeStoreId() !== store._id"
-                 [class.translate-x-1]="activeStoreId() === store._id"
-                 [class.opacity-100]="activeStoreId() === store._id"
-                 [class.opacity-0]="activeStoreId() !== store._id"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg
+              class="w-5 h-5 transition-all duration-300"
+              [class.text-matcha]="activeStoreId() === store._id"
+              [class.text-gray-300]="activeStoreId() !== store._id"
+              [class.translate-x-1]="activeStoreId() === store._id"
+              [class.opacity-100]="activeStoreId() === store._id"
+              [class.opacity-0]="activeStoreId() !== store._id"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
             </svg>
           </div>
 
@@ -47,25 +55,21 @@
           </p>
 
           <div class="flex items-center gap-2 mt-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#87af4b]"></span>
-            <span class="text-[10px] uppercase tracking-widest text-gray-400 font-medium">Open until 20:00</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-matcha"></span>
+            <span class="text-[10px] uppercase tracking-widest text-gray-400 font-medium"
+              >Open until 20:00</span
+            >
           </div>
-
         </button>
       }
-
     </div>
 
     <div class="lg:col-span-7 relative h-125 lg:h-auto">
-
-      <div class="lg:sticky lg:top-32 w-full h-125 lg:h-150 rounded-sm overflow-hidden border border-gray-200 shadow-sm bg-stone-50 isolate">
-
+      <div
+        class="lg:sticky lg:top-32 w-full h-125 lg:h-150 rounded-sm overflow-hidden border border-gray-200 shadow-sm bg-stone-50 isolate"
+      >
         <div id="map" class="w-full h-full z-0"></div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

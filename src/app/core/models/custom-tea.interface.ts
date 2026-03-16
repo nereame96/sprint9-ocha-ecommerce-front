@@ -21,7 +21,7 @@ export interface CreateCustomTeaDto {
   base: Base;
   ingredients: Ingredients[];
   calculatedPrice: number;
-  intensity: number; //es una media calculada de base y ingredients
+  intensity: number; 
   size: Size;
   imageUrl: string;
 }

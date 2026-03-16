@@ -6,12 +6,12 @@ export interface OrderModel {
     userId: string;
     products: OrderProduct[];
     customTeas: OrderCustomTea[];
-    totalAmount: number; //ya viene del front calculado
-    totalItems: number; //ya viene del front calculado
+    totalAmount: number;
+    totalItems: number;
     status: Status;
     paymentMethod: PaymentMethod;
     cardLast4?: string;
-    isPaid: boolean; //Simular pago
+    isPaid: boolean; 
     paidAt: Date;
     deliveryAddress: DeliveryAddress;
     phone: string;

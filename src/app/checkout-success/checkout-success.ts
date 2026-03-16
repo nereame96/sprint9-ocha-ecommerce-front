@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../core/services/cart.service';
 import { OrdersService } from '../core/services/orders.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-success',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './checkout-success.html',
   styleUrl: './checkout-success.css',
 })
@@ -34,7 +34,6 @@ export class CheckoutSuccessComponent implements OnInit {
 
     this.ordersService.createOrder(finalOrderPayload).subscribe({
       next: (orderSaved) => {
-        console.log('✅ ¡Pedido guardado en Mongo Atlas!', orderSaved);
         localStorage.removeItem('pending_order')
         this.cartService.clear()
       },

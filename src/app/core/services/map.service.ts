@@ -11,7 +11,7 @@ export class MapService {
   initMap(config: MapConfig): L.Map {
   this.destroyMap(config.containerId);
 
-  // Validación de center y zoom
+
   const center: [number, number] =
     Array.isArray(config.center) &&
     config.center.length === 2 &&

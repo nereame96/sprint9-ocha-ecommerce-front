@@ -25,7 +25,7 @@ export class ProductsService {
   products = this._products.asReadonly();
   loading = this._loading.asReadonly();
   error = this._error.asReadonly();
-  
+
 
   categoryList = Object.values(Category)
 
@@ -66,16 +66,3 @@ export class ProductsService {
   }
 
 }
-
-
-
-
-
-
-//addProductToCart
-//removeProductFromCart
-//goToProductDetail
-//increaseNumProducts
-//decreaseNumProducts
-
-

@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderCustomTea, OrderProduct } from '../core/models/order.interface';
 import { CurrencyPipe } from '@angular/common';
 import { OrdersService } from '../core/services/orders.service';
+import { ToastService } from '../core/services/toast';
 
 @Component({
   selector: 'app-checkout',
@@ -16,6 +17,7 @@ export class CheckoutComponent {
   cartService = inject(CartService)
   ordersService = inject(OrdersService)
   private fb = inject(FormBuilder)
+  private toastService = inject(ToastService)
 
   checkoutForm = this.fb.group({
     street: ['', Validators.required],
@@ -28,8 +30,11 @@ export class CheckoutComponent {
   onPay() {
     if (this.checkoutForm.invalid || this.cartService.items().length === 0) {
       this.checkoutForm.markAllAsTouched();
+      this.toastService.show('Please complete all required fields', 'error');
       return;
     }
+
+    this.toastService.show('Redirecting to payment simulation...', 'info');
 
     const formValues = this.checkoutForm.value
     const cartItems = this.cartService.items()
@@ -71,21 +76,18 @@ export class CheckoutComponent {
       phone: formValues.phone
     };
 
-    console.log('📦 PAYLOAD LISTO PARA EL BACKEND:', orderPayload);
 
-    console.log('📦 Solicitando sesión de pago a Stripe...');
 
     localStorage.setItem('pending_order', JSON.stringify(orderPayload));
 
-  // Delegamos el trabajo sucio al servicio
+
   this.ordersService.createCheckoutSession(orderPayload).subscribe({
     next: (response) => {
-      // El componente solo se encarga de cambiar de ventana
       window.location.href = response.url;
     },
     error: (err) => {
       console.error('Error al contactar con Stripe:', err);
-      alert('Hubo un problema al procesar el pago. Inténtalo de nuevo.');
+      this.toastService.show('Payment gateway error. Please try again.', 'error');
     }
   });
   }

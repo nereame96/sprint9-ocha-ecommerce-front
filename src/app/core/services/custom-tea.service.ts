@@ -76,14 +76,16 @@ export class CustomTeaService {
       'Gyokuro': 10,
     }
 
-    const sizeMultiplier: Record<string, number> = { 
+    const sizeMultiplier: Record<string, number> = {
     '50gr': 1,
     '100gr': 1.8,
     '250gr': 2.5
   };
 
+  const priceIngredient = 1
+
   const basePrice = basePrices[customTea.base] || 0
-  const ingredientsPrice = (customTea.ingredients?.length || 0 ) * 1  //   1 eur/ingredient
+  const ingredientsPrice = (customTea.ingredients?.length || 0 ) * priceIngredient  
   const multiplier = sizeMultiplier[customTea.size] || 1
   const finalPrice = (basePrice + ingredientsPrice) * multiplier
 
@@ -114,7 +116,7 @@ export class CustomTeaService {
         totalIntensity += ingredientsIntensity[ingredient] || 0
       }
     }
-    console.log(totalIntensity)
+
     const numberOfElements = 1 + (customTea.ingredients.length || 0)
 
     const averageIntensity = ( totalIntensity / numberOfElements )

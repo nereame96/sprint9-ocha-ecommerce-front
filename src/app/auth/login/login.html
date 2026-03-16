@@ -1,7 +1,7 @@
-<div class="min-h-[calc(100vh-100px)] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 bg-stone-50/30">
-
+<div
+  class="min-h-[calc(100vh-100px)] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 bg-stone-50/30"
+>
   <div class="w-full max-w-md bg-white p-8 md:p-12 border border-gray-100 shadow-sm rounded-sm">
-
     <h1 class="text-3xl font-light tracking-[0.2em] uppercase text-center text-gray-900 mb-10">
       Log In
     </h1>
@@ -10,8 +10,8 @@
       [formGroup]="loginForm"
       (ngSubmit)="onSubmit()"
       class="space-y-8"
-      aria-label="Log In form">
-
+      aria-label="Log In form"
+    >
       <div class="relative">
         <label for="userName" class="sr-only">User</label>
         <input
@@ -20,8 +20,11 @@
           formControlName="userName"
           placeholder="Username"
           aria-required="true"
-          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
-          [attr.aria-invalid]="loginForm.get('userName')?.invalid && loginForm.get('userName')?.touched">
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-matcha focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="
+            loginForm.get('userName')?.invalid && loginForm.get('userName')?.touched
+          "
+        />
       </div>
 
       <div class="relative">
@@ -32,15 +35,19 @@
           formControlName="password"
           placeholder="Password"
           aria-required="true"
-          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-[#87af4b] focus:ring-0 transition-colors placeholder-gray-400"
-          [attr.aria-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-matcha focus:ring-0 transition-colors placeholder-gray-400"
+          [attr.aria-invalid]="
+            loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+          "
+        />
       </div>
 
       @if (errorMessage()) {
         <div
           class="text-red-500 text-xs text-center font-medium tracking-wide"
           role="alert"
-          aria-live="assertive">
+          aria-live="assertive"
+        >
           {{ errorMessage() }}
         </div>
       }
@@ -48,28 +55,45 @@
       <button
         type="submit"
         [disabled]="isLoading()"
-        class="w-full bg-black text-white px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#87af4b] transition-colors duration-300 rounded-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
-        aria-label="Iniciar sesión en Ocha">
-
+        class="w-full bg-black text-white px-6 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-matcha transition-colors duration-300 rounded-sm shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+        aria-label="Iniciar sesión en Ocha"
+      >
         @if (isLoading()) {
-          <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          <svg
+            class="animate-spin -ml-1 mr-3 h-4 w-4 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
           </svg>
           Authenticating...
         } @else {
           Log In
         }
-
       </button>
 
       <div class="text-center pt-6 border-t border-gray-50">
         <span class="text-xs text-gray-400 font-light">New to Ocha? </span>
-        <a routerLink="/register" class="text-xs font-bold uppercase tracking-widest text-[#87af4b] hover:text-black transition-colors ml-2">
+        <a
+          routerLink="/register"
+          class="text-xs font-bold uppercase tracking-widest text-matcha hover:text-black transition-colors ml-2"
+        >
           Create Account
         </a>
       </div>
-
     </form>
   </div>
 </div>

@@ -1,21 +1,21 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-4">
-
   <section class="mb-16">
     <div
       class="flex items-center justify-start md:justify-center gap-8 md:gap-16 border-b border-gray-200 overflow-x-auto overflow-y-hidden hide-scrollbar pb-0"
       role="tablist"
-      aria-label="Tea category filter">
-
+      aria-label="Tea category filter"
+    >
       <button
         role="tab"
         [attr.aria-selected]="selectedCategory() === null"
         (click)="onSelectCategory(null)"
         class="whitespace-nowrap flex-shrink-0 text-xs uppercase tracking-[0.2em] font-bold pb-4 -mb-px transition-colors border-b-2"
-        [class.text-[#87af4b]]="selectedCategory() === null"
-        [class.border-[#87af4b]]="selectedCategory() === null"
+        [class.text-matcha]="selectedCategory() === null"
+        [class.border-matcha]="selectedCategory() === null"
         [class.text-gray-400]="selectedCategory() !== null"
         [class.border-transparent]="selectedCategory() !== null"
-        [class.hover:text-black]="selectedCategory() !== null">
+        [class.hover:text-black]="selectedCategory() !== null"
+      >
         All
       </button>
 
@@ -25,11 +25,12 @@
           [attr.aria-selected]="selectedCategory() === category"
           (click)="onSelectCategory(category)"
           class="whitespace-nowrap flex-shrink-0 text-xs uppercase tracking-[0.2em] font-bold pb-4 -mb-px transition-colors border-b-2"
-          [class.text-[#87af4b]]="selectedCategory() === category"
-          [class.border-[#87af4b]]="selectedCategory() === category"
+          [class.text-matcha]="selectedCategory() === category"
+          [class.border-matcha]="selectedCategory() === category"
           [class.text-gray-400]="selectedCategory() !== category"
           [class.border-transparent]="selectedCategory() !== category"
-          [class.hover:text-black]="selectedCategory() !== category">
+          [class.hover:text-black]="selectedCategory() !== category"
+        >
           {{ category }}
         </button>
       }
@@ -37,27 +38,29 @@
   </section>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-
     @for (product of filteredProducts(); track product._id) {
       <article class="group flex flex-col">
-
         <div class="aspect-4/5 overflow-hidden rounded-lg bg-[#fcfcfc] mb-6 relative">
-
           <a
             [routerLink]="['/product-detail', product._id]"
             [attr.aria-label]="'See details of' + product.name"
-            class="block w-full h-full">
+            class="block w-full h-full"
+          >
             <img
               [src]="product.imageUrl"
               [alt]="product.name"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"
+            ></div>
           </a>
 
           <button
             (click)="cartService.addProduct(product, 1)"
             [attr.aria-label]="'Add ' + product.name + ' to cart'"
-            class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-[10px] text-black font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 duration-300 hover:bg-[#87af4b] hover:text-white z-10">
+            class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-[10px] text-black font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 duration-300 hover:bg-matcha hover:text-white z-10"
+          >
             Add to Cart
           </button>
         </div>
@@ -65,7 +68,9 @@
         <div class="flex justify-between items-start">
           <div>
             <a [routerLink]="['/product-detail', product._id]">
-              <h3 class="text-sm font-semibold tracking-tight uppercase mb-1 hover:text-[#87af4b] transition-colors">
+              <h3
+                class="text-sm font-semibold tracking-tight uppercase mb-1 hover:text-matcha transition-colors"
+              >
                 {{ product.name }}
               </h3>
             </a>
@@ -73,21 +78,20 @@
               Available: {{ product.quantity }} units
             </p>
           </div>
-          <span class="text-sm font-medium text-[#87af4b] whitespace-nowrap ml-4">
+          <span class="text-sm font-medium text-matcha whitespace-nowrap ml-4">
             {{ product.price }} €
           </span>
         </div>
-
       </article>
     }
-
   </section>
 
   @if (filteredProducts().length === 0) {
-    <div class="flex flex-col items-center justify-center text-center p-12 bg-[#87af4b]/5 rounded-lg border border-dashed border-[#87af4b]/20 col-span-full mt-8">
+    <div
+      class="flex flex-col items-center justify-center text-center p-12 bg-matcha/5 rounded-lg border border-dashed border-matcha/20 col-span-full mt-8"
+    >
       <p class="text-sm italic font-light leading-relaxed">"New teas for this category soon..."</p>
-      <div class="mt-6 w-8 h-px bg-[#87af4b]/40"></div>
+      <div class="mt-6 w-8 h-px bg-matcha/40"></div>
     </div>
   }
-
 </div>

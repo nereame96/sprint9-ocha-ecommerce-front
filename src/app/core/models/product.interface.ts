@@ -8,10 +8,10 @@ export interface ProductModel {
   price: number;
   stock: number;
   category: Category;
-  quantity: string;  // siempre 100gr
+  quantity: string;
   intensity: Intensity;
   imageUrl: string;
-  isActive?: boolean;  // para desactivar productos
+  isActive?: boolean;  
   rating?: number;
   soldCount?: number;
   createdAt: Date;

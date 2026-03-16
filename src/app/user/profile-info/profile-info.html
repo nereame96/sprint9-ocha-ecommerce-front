@@ -1,6 +1,7 @@
 <div class="animate-fade-in">
-
-  <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-900 border-b border-gray-100 pb-6 mb-8">
+  <h2
+    class="text-sm font-bold tracking-[0.2em] uppercase text-gray-900 border-b border-gray-100 pb-6 mb-8"
+  >
     Personal Details
   </h2>
 
@@ -14,23 +15,32 @@
         </div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 pt-8 border-t border-gray-50">
-        <div class="space-y-3"><div class="h-2 bg-gray-50 w-24"></div><div class="h-3 bg-gray-100 w-40"></div></div>
-        <div class="space-y-3"><div class="h-2 bg-gray-50 w-24"></div><div class="h-3 bg-gray-100 w-40"></div></div>
+        <div class="space-y-3">
+          <div class="h-2 bg-gray-50 w-24"></div>
+          <div class="h-3 bg-gray-100 w-40"></div>
+        </div>
+        <div class="space-y-3">
+          <div class="h-2 bg-gray-50 w-24"></div>
+          <div class="h-3 bg-gray-100 w-40"></div>
+        </div>
       </div>
     </div>
   }
 
   @if (error()) {
-    <div class="text-red-500 text-xs font-medium tracking-wide border border-red-100 bg-red-50/50 p-4 rounded-sm" role="alert">
+    <div
+      class="text-red-500 text-xs font-medium tracking-wide border border-red-100 bg-red-50/50 p-4 rounded-sm"
+      role="alert"
+    >
       {{ error() }}
     </div>
   }
 
   @if (profile(); as user) {
-
     <div class="flex flex-col md:flex-row items-start md:items-center gap-8 mb-12">
-
-      <div class="w-20 h-20 border border-[#87af4b]/30 text-[#87af4b] rounded-full flex items-center justify-center text-3xl font-light bg-[#87af4b]/5 shadow-sm">
+      <div
+        class="w-20 h-20 border border-matcha/30 text-matcha rounded-full flex items-center justify-center text-3xl font-light bg-matcha/5 shadow-sm"
+      >
         {{ user.userName.charAt(0) | uppercase }}
       </div>
 
@@ -41,24 +51,30 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-y-10 gap-x-12 pt-8 border-t border-gray-100">
-
       <div>
-        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Username</span>
+        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2"
+          >Username</span
+        >
         <p class="text-base text-gray-900 font-light">{{ user.userName }}</p>
       </div>
 
       <div>
-        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Email Address</span>
+        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2"
+          >Email Address</span
+        >
         <p class="text-base text-gray-900 font-light">{{ user.email }}</p>
       </div>
 
       <div>
-        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2">Account Status</span>
-        <span class="inline-flex items-center gap-2 text-xs text-[#87af4b] font-medium tracking-widest uppercase">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#87af4b] animate-pulse"></span> Active Member
+        <span class="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2"
+          >Account Status</span
+        >
+        <span
+          class="inline-flex items-center gap-2 text-xs text-matcha font-medium tracking-widest uppercase"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-matcha animate-pulse"></span> Active Member
         </span>
       </div>
-
     </div>
   }
 </div>
