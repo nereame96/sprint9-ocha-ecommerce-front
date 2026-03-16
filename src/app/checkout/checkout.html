@@ -79,6 +79,12 @@
           <span class="text-4xl font-light text-gray-900">{{ cartService.totalAmount() | currency:'EUR' }}</span>
         </div>
 
+        <div class="mb-4 bg-amber-50/50 border border-amber-100 p-3 rounded-sm">
+        <p class="text-[9px] text-amber-700 font-light tracking-widest leading-relaxed text-center uppercase">
+          <strong class="font-bold">Attention:</strong> Ocha is a portfolio project. This gateway is a simulation. Do not enter real credit card info.
+        </p>
+      </div>
+
         <button
           (click)="onPay()"
           [disabled]="checkoutForm.invalid"
