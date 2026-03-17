@@ -24,7 +24,7 @@ export class CheckoutComponent {
     city: ['', Validators.required],
     postalCode: ['', Validators.required],
     country: ['', Validators.required],
-    phone: ['', Validators.required, Validators.minLength(9)],
+    phone: ['', [Validators.required, Validators.minLength(9)]],
   })
 
   onPay() {

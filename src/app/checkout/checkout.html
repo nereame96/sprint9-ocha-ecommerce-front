@@ -71,6 +71,11 @@
               class="w-full border-0 border-b border-gray-200 bg-transparent px-0 py-3 text-sm focus:border-matcha focus:ring-0 transition-colors placeholder-gray-300"
               placeholder="e.g. +81 90 1234 5678"
             />
+            @if (checkoutForm.get('phone')?.touched && checkoutForm.get('phone')?.hasError('minlength')) {
+              <span class="text-[10px] text-red-500 absolute -bottom-5 left-0">
+                Minimum 9 characters required
+              </span>
+            }
           </div>
         </div>
       </form>
