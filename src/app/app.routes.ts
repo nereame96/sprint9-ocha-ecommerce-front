@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { RegisterComponent } from './auth/register/register';
 import { LoginComponent } from './auth/login/login';
-import { HomeComponent } from './shared/home/home';
+import { HomeComponent } from './layout/home/home';
 import { ProductsListComponent } from './products/products-list/products-list';
 import { ProductDetailComponent } from './products/product-detail/product-detail';
 import { CartComponent } from './cart/cart';

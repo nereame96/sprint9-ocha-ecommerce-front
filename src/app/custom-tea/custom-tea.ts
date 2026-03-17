@@ -30,6 +30,13 @@ export class CustomTeaComponent {
   ingredientsList = Object.values(Ingredients);
   sizeList = Object.values(Size);
 
+  baseImages: Record<string, string> = {
+  'Matcha': 'https://res.cloudinary.com/daz3fkmg9/image/upload/v1773576298/kagoshima-matcha_c035my.jpg',
+  'Sencha': 'https://res.cloudinary.com/daz3fkmg9/image/upload/v1773576297/yakubita-sencha_i0dmxg.jpg',
+  'Gyokuro': 'https://res.cloudinary.com/daz3fkmg9/image/upload/v1773576302/spring-gyokuro_azoc5a.jpg',
+  'Hojicha': 'https://res.cloudinary.com/daz3fkmg9/image/upload/v1773746710/8c79395627b886303e2dd5212667ae0d_d3qipc.jpg',
+};
+
   currentIntensity = computed(() => {
     const currentBase = this.selectedBase();
 

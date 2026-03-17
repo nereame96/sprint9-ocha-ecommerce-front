@@ -36,20 +36,19 @@
               [class.border-gray-200]="selectedBase() !== base"
               [class.text-gray-600]="selectedBase() !== base"
             >
-              <svg
-                class="w-6 h-6 mb-1 opacity-50"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <div
+                class="w-20 h-20 rounded-full overflow-hidden transition-all duration-300 flex-shrink-0"
+                [class.border-matcha]="selectedBase() === base"
+                [class.border-transparent]="selectedBase() !== base"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.5"
-                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                <img
+                  [src]="baseImages[base]"
+                  [alt]="base"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-              </svg>
-              {{ base }}
+              </div>
+
+              <span>{{ base }}</span>
             </button>
           }
         </div>

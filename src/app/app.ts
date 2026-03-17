@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './shared/navbar/navbar';
+import { NavbarComponent } from './layout/navbar/navbar';
 import { CartComponent } from './cart/cart';
 import { FooterComponent } from './layout/footer/footer';
 import { ToastService } from './core/services/toast';
