@@ -37,7 +37,7 @@
               [class.text-gray-600]="selectedBase() !== base"
             >
               <div
-                class="w-20 h-20 rounded-full overflow-hidden transition-all duration-300 flex-shrink-0"
+                class="w-20 h-20 rounded-full overflow-hidden transition-all duration-300 shrink-0"
                 [class.border-matcha]="selectedBase() === base"
                 [class.border-transparent]="selectedBase() !== base"
               >
@@ -134,7 +134,7 @@
           Your Blend Summary
         </h4>
 
-        <div class="space-y-4 mb-8 min-h-[120px]">
+        <div class="space-y-4 mb-8 min-h-30">
           @if (selectedBase()) {
             <div class="flex justify-between text-sm uppercase tracking-widest">
               <span class="text-gray-500">Base</span>
